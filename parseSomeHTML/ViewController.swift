@@ -10,20 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var htmlContent:NSString = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-       
+        perFormConnectionToGrabUrlContent(url: "http://www.folkro.ru/novosti/1/")
         
         
-        
-        
-        let url = NSURL(string: "http://www.folkro.ru/novosti/1/")
-        let request = NSURLRequest(URL: url!)
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
-            println(NSString(data: data, encoding: NSUTF8StringEncoding))
-        }
         
         
         
@@ -61,7 +56,21 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
+    
+    
+    
+    func perFormConnectionToGrabUrlContent(# url:String)-> NSString {
+        let url = NSURL(string: url)
+        let request = NSURLRequest(URL: url!)
+        var htmlContentTemp:NSString = ""
+        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
+            htmlContentTemp = NSString(data: data, encoding: NSUTF8StringEncoding)!
+            println(htmlContentTemp)
+        }
+        return htmlContentTemp
+    }
 
 }
 
